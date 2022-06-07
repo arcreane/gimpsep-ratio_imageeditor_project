@@ -142,10 +142,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Darken.cpp" />
+    <ClCompile Include="Dilate.cpp" />
+    <ClCompile Include="Erode.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Size.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resize.cpp" />
+    <ClInclude Include="Darken.h" />
+    <ClInclude Include="Dilate.h" />
+    <ClInclude Include="Erode.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Size.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
