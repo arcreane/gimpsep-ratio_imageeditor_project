@@ -3,6 +3,7 @@
 #include "Dilate.h"
 #include "Erode.h"
 #include "Size.h"
+#include "FaceDetection.h"
 #include <iostream>
 
 using namespace std;
@@ -26,7 +27,7 @@ Mat Menu() {
 		double factor;
 		String Stringmorphshape;
 		cout << "What do you want to do" << endl;
-		cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl;
+		cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl;
 		int choice = 0;
 		cin >> choice;
 
@@ -92,9 +93,12 @@ Mat Menu() {
 			}
 			modified_image = dilate(image, factor, factor, morphshape);
 			break;
+		case 6:
+			modified_image = faceDetection(image);
+			break;
 		default:
 			cout << "Wrong input, please choose between : " << endl;
-			cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl;
+			cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl;
 			cin >> choice;
 		}
 		String imageWindow = "modified_image";
