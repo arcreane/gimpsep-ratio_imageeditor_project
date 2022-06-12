@@ -4,6 +4,8 @@
 #include "Erode.h"
 #include "Size.h"
 #include "FaceDetection.h"
+#include "CannyEdge.h"
+#include "PanoramaStitching.h"
 #include "GreyConverterVideo.h"
 #include "CannyEdgeVideo.h"
 #include "SpeedChangerVideo.h"
