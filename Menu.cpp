@@ -6,7 +6,6 @@
 #include "FaceDetection.h"
 #include "CannyEdge.h"
 #include "PanoramaStitching.h"
-#include "Contrast.h"
 #include "GreyConverterVideo.h"
 #include "CannyEdgeVideo.h"
 #include "SpeedChangerVideo.h"
@@ -182,14 +181,6 @@ Mat Menu() {
 				int choiceMenuVideo = 0;
 				cin >> choiceMenuVideo;
 
-				Mat modified_image;
-				MorphShapes morphshape;
-				double factor;
-				String Stringmorphshape;
-				cout << "What do you want to do" << endl;
-				cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl << "7 : CannyEdge" << endl << "8 : Contrast Image" << endl;
-				int choice = 0;
-				cin >> choice;
 				VideoWriter modifiedVideo;
 
 				switch (choiceMenuVideo) {
@@ -217,19 +208,6 @@ Mat Menu() {
 						cout << "You factor must be between 0.1 and 4.0, enter it a new time :" << endl;
 						cin >> scaleFactor;
 					}
-					modified_image = dilate(image, factor, factor, morphshape);
-					break;
-				case 6:
-					modified_image = faceDetection(image);
-					break;
-				case 7:
-					modified_image = cannyEdge(image);
-					break;
-				case 8:
-					cout << "chose the factor : (1 does not change the contrast, 2 increases, between 0 and 1 decreases) " << endl;
-					cin >> factor;
-					modified_image = Contrast(image, factor);
-					break;
 					modifiedVideo = scaleChangerVideo(cap, scaleFactor);
 				default:
 					cout << "Wrong input, please choose between : " << endl;
