@@ -10,6 +10,7 @@
 #include "CannyEdgeVideo.h"
 #include "SpeedChangerVideo.h"
 #include "ScaleChangerVideo.h"
+#include "Contrast.h"
 #include <iostream>
 
 using namespace std;
@@ -28,6 +29,8 @@ Mat Menu() {
 			cin >> editOrStitch;
 
 			bool loopImageMenu = true;
+
+
 			while (loopImageMenu != false) {
 				if (editOrStitch.compare("Stitch") == 0) {
 					panoramaStitching();
@@ -37,129 +40,157 @@ Mat Menu() {
 					String urlImage;
 					cout << "Please write the path to your image file : " << endl;
 					cin >> urlImage;
-					cout << typeid(urlImage).name();
-
 					Mat image;
 					std::string image_path = samples::findFile(urlImage);
 					image = imread(image_path);
-					Mat modified_image;
-					MorphShapes morphshape;
-					double factor;
-					String Stringmorphshape;
-					cout << "What do you want to do" << endl;
-					cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl;
-					int choiceMenuImage = 0;
-					cin >> choiceMenuImage;
-
-					switch (choiceMenuImage) {
-					case 1:
-						cout << "chose the factor (2 = 2 times bigger, 0.5, divide the size by two)" << endl;
-						cin >> factor;
-						modified_image = resize_image(image, factor);
-						break;
-					case 2:
-						cout << "chose the factor :" << endl;
-						cin >> factor;
-						if (factor > 0) {
-							factor = 0 - factor;
-						}
-						modified_image = darken_image(image, factor);
-						break;
-					case 3:
-						cout << "chose the factor :" << endl;
-						cin >> factor;
-						if (factor < 0) {
-							factor = 0 - factor;
-						}
-						modified_image = darken_image(image, factor);
-						break;
-					case 4:
-						cout << "chose the factor :" << endl;
-						cin >> factor;
-						cout << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
-						cin >> Stringmorphshape;
-						if (Stringmorphshape.compare("CROSS") == 0) {
-							morphshape = MORPH_CROSS;
-						}
-						else if (Stringmorphshape.compare("ELLIPSE") == 0) {
-							morphshape = MORPH_ELLIPSE;
-						}
-						else if (Stringmorphshape.compare("RECT") == 0) {
-							morphshape = MORPH_RECT;
-						}
-						else {
-							cout << "Wrong input !" << endl << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
-							cin >> Stringmorphshape;
-						}
-						modified_image = erode(image, factor, factor, morphshape);
-						break;
-					case 5:
-						cout << "chose the factor :" << endl;
-						cin >> factor;
-						cout << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
-						cin >> Stringmorphshape;
-						if (Stringmorphshape.compare("CROSS") == 0) {
-							morphshape = MORPH_CROSS;
-						}
-						else if (Stringmorphshape.compare("ELLIPSE") == 0) {
-							morphshape = MORPH_ELLIPSE;
-						}
-						else if (Stringmorphshape.compare("RECT") == 0) {
-							morphshape = MORPH_RECT;
-						}
-						else {
-							cout << "Wrong input !" << endl << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
-							cin >> Stringmorphshape;
-						}
-						modified_image = dilate(image, factor, factor, morphshape);
-						break;
-					case 6:
-						modified_image = faceDetection(image);
-						break;
-					default:
-						cout << "Wrong input, please choose between : " << endl;
-						cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl;
+					bool keepEditing = true;
+					while (keepEditing) {
+						Mat modified_image;
+						MorphShapes morphshape;
+						double factor;
+						String Stringmorphshape;
+						cout << "What do you want to do" << endl;
+						cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl << "7 : CannyEdge" << endl << "8 : Contrast" << endl;
+						int choiceMenuImage = 0;
 						cin >> choiceMenuImage;
-					}
-					String imageWindow = "modified_image";
-					namedWindow(imageWindow);
-					imshow(imageWindow, modified_image);
 
-					waitKey(0);
-					destroyAllWindows();
+						switch (choiceMenuImage) {
+						case 1:
+							cout << "chose the factor (2 = 2 times bigger, 0.5, divide the size by two)" << endl;
+							cin >> factor;
+							modified_image = resize_image(image, factor);
+							break;
+						case 2:
+							cout << "chose the factor :" << endl;
+							cin >> factor;
+							if (factor > 0) {
+								factor = 0 - factor;
+							}
+							modified_image = darken_image(image, factor);
+							break;
+						case 3:
+							cout << "chose the factor :" << endl;
+							cin >> factor;
+							if (factor < 0) {
+								factor = 0 - factor;
+							}
+							modified_image = darken_image(image, factor);
+							break;
+						case 4:
+							cout << "chose the factor :" << endl;
+							cin >> factor;
+							cout << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
+							cin >> Stringmorphshape;
+							if (Stringmorphshape.compare("CROSS") == 0) {
+								morphshape = MORPH_CROSS;
+							}
+							else if (Stringmorphshape.compare("ELLIPSE") == 0) {
+								morphshape = MORPH_ELLIPSE;
+							}
+							else if (Stringmorphshape.compare("RECT") == 0) {
+								morphshape = MORPH_RECT;
+							}
+							else {
+								cout << "Wrong input !" << endl << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
+								cin >> Stringmorphshape;
+							}
+							modified_image = erode(image, factor, factor, morphshape);
+							break;
+						case 5:
+							cout << "chose the factor :" << endl;
+							cin >> factor;
+							cout << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
+							cin >> Stringmorphshape;
+							if (Stringmorphshape.compare("CROSS") == 0) {
+								morphshape = MORPH_CROSS;
+							}
+							else if (Stringmorphshape.compare("ELLIPSE") == 0) {
+								morphshape = MORPH_ELLIPSE;
+							}
+							else if (Stringmorphshape.compare("RECT") == 0) {
+								morphshape = MORPH_RECT;
+							}
+							else {
+								cout << "Wrong input !" << endl << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
+								cin >> Stringmorphshape;
+							}
+							modified_image = dilate(image, factor, factor, morphshape);
+							break;
+						case 6:
+							modified_image = faceDetection(image);
+							break;
+						case 7:
+							modified_image = cannyEdge(image);
+							break;
+						case 8:
+							cout << "chose the factor : (Over 1 increases contrast, between 0 and 1 decreases)" << endl;
+							cin >> factor;
+							modified_image = contrast(image, factor);
+							break;
+						default:
+							cout << "Wrong input, please choose between : " << endl;
+							cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl << "7 : CannyEdge" << endl << "8 : Contrast" << endl;
+							cin >> choiceMenuImage;
+						}
+						String imageWindow = "modified_image";
+						namedWindow(imageWindow);
+						imshow(imageWindow, modified_image);
+
+						waitKey(0);
+						destroyAllWindows();
 
 
-					cout << "Do you want to keep this modification ? (Yes or No)" << endl;
-					String keepTheNewImage;
-					cin >> keepTheNewImage;
-
-					if (keepTheNewImage == "Yes") {
-						image = modified_image;
-					}
-					else if (keepTheNewImage == "No") {
-						image = image;
-					}
-					else {
-						cout << "Wrong input, write Yes or No" << endl;
+						cout << "Do you want to keep this modification ? (Yes or No)" << endl;
+						String keepTheNewImage;
 						cin >> keepTheNewImage;
-					}
 
-					cout << "Do you want to keep editing your image ? Yes or No" << endl;
-					String finalChoice;
-					cin >> finalChoice;
+						if (keepTheNewImage == "Yes") {
+							image = modified_image;
+						}
+						else if (keepTheNewImage == "No") {
+							image = image;
+						}
+						else {
+							cout << "Wrong input, write Yes or No" << endl;
+							cin >> keepTheNewImage;
+						}
 
-					if (finalChoice.compare("Yes") == 0) {
-						loopImageMenu = true;
-					}
-					else if (finalChoice.compare("No") == 0) {
-						loopImageMenu = false;
-					}
-					else {
-						cout << "Wrong input !" << endl << "Chose Yes of No" << endl;
+						cout << "Do you want to keep editing your image ? (Yes or No)" << endl;
+						String finalChoice;
 						cin >> finalChoice;
+
+						if (finalChoice.compare("Yes") == 0) {
+							loopImageMenu = true;
+						}
+						else if (finalChoice.compare("No") == 0) {
+							String saveChoice;
+							cout << "Do you want to save your new image ? (Yes or No) " << endl;
+							cin >> saveChoice;
+							while (saveChoice.compare("Yes") !=0 || saveChoice.compare("No") != 0) {
+							if (saveChoice.compare("Yes") == 0) {
+								imwrite("saveImage.jpg", image);
+							} else if (saveChoice.compare("No") != 0){
+								cout << "Wrong input ! (Yes or No)" << endl;
+								cin >> saveChoice;
+							}
+							}
+
+							keepEditing = false;
+							loopImageMenu = false;
+						}
+						else {
+							cout << "Wrong input !" << endl << "Chose Yes of No" << endl;
+							cin >> finalChoice;
+						}
 					}
 				}
+				else {
+					cout << "Wrong input, chose between Edit and Stitch" << endl;
+					cin >> editOrStitch;
+				}
+
 			}
+
 		}
 		else if (choiceStartMenu == 2) {
 			String urlVideo;
@@ -223,7 +254,7 @@ Mat Menu() {
 				String saveTheNewVideo;
 				cin >> saveTheNewVideo;
 
-				if (saveTheNewVideo == "Yes") {	
+				if (saveTheNewVideo == "Yes") {
 					modifiedVideo.release();
 					cout << "\nFinished wirting, you can check the result in the project repository" << endl;
 					loopVideoMenu = false;
