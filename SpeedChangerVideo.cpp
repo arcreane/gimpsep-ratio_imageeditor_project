@@ -3,8 +3,8 @@
 VideoWriter speedChangerVideo(VideoCapture video, double factor) {
 
 	Mat frame;
-	int frameWidth = video.get(cv::CAP_PROP_FRAME_WIDTH);
-	int frameHeight = video.get(cv::CAP_PROP_FRAME_HEIGHT);
+	int frameWidth = video.get(CAP_PROP_FRAME_WIDTH);
+	int frameHeight = video.get(CAP_PROP_FRAME_HEIGHT);
 	int fps = video.get(CAP_PROP_FPS);
 	double newFrameRate = ceil(fps * factor);
 
@@ -14,7 +14,7 @@ VideoWriter speedChangerVideo(VideoCapture video, double factor) {
 		video >> frame;
 
 		imshow("Modified video (press enter to exit)", frame);
-		if (waitKey(1000.0 / newFrameRate) == fps) {
+		if (waitKey(1000.0 / newFrameRate) == 30) {
 			break;
 		}
 		modifiedVideo << frame;
