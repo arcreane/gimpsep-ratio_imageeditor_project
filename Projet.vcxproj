@@ -142,19 +142,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CannyEdge.cpp" />
+    <ClCompile Include="CannyEdgeVideo.cpp" />
+    <ClCompile Include="Contrast.cpp" />
     <ClCompile Include="Darken.cpp" />
     <ClCompile Include="Dilate.cpp" />
+    <ClCompile Include="DrawOnImage.cpp" />
     <ClCompile Include="Erode.cpp" />
+    <ClCompile Include="FaceDetection.cpp" />
+    <ClCompile Include="GreyConverterVideo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="PanoramaStitching.cpp" />
+    <ClCompile Include="ScaleChangerVideo.cpp" />
     <ClCompile Include="Size.cpp" />
+    <ClCompile Include="SpeedChangerVideo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CannyEdge.h" />
+    <ClInclude Include="CannyEdgeVideo.h" />
+    <ClInclude Include="Contrast.h" />
     <ClInclude Include="Darken.h" />
     <ClInclude Include="Dilate.h" />
+    <ClInclude Include="DrawOnImage.h" />
     <ClInclude Include="Erode.h" />
+    <ClInclude Include="FaceDetection.h" />
+    <ClInclude Include="GreyConverterVideo.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="PanoramaStitching.h" />
+    <ClInclude Include="ScaleChangerVideo.h" />
     <ClInclude Include="Size.h" />
+    <ClInclude Include="SpeedChangerVideo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

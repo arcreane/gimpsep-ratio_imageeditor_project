@@ -5,6 +5,6 @@ using namespace cv;
 #ifndef MENU_H
 #define MENU_H
 
-Mat Menu();
+int Menu();
 
 #endif

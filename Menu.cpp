@@ -11,6 +11,7 @@
 #include "SpeedChangerVideo.h"
 #include "ScaleChangerVideo.h"
 #include "Contrast.h"
+#include "DrawOnImage.h"
 #include <iostream>
 
 using namespace std;
@@ -50,7 +51,7 @@ int Menu() {
 						double factor;
 						String Stringmorphshape;
 						cout << "What do you want to do" << endl;
-						cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl << "7 : CannyEdge" << endl << "8 : Contrast" << endl;
+						cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl << "7 : CannyEdge" << endl << "8 : Contrast" << endl << "9 : Draw" << endl;
 						int choiceMenuImage = 0;
 						cin >> choiceMenuImage;
 
@@ -135,9 +136,15 @@ int Menu() {
 							cin >> factor;
 							modified_image = contrast(image, factor);
 							break;
+						case 9:
+							namedWindow("modified_image", 0);
+							setMouseCallback("modified_image", drawOnImage, &image);
+							waitKey(0);
+							modified_image = image;
+							break;
 						default:
 							cout << "Wrong input, please choose between : " << endl;
-							cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl << "7 : CannyEdge" << endl << "8 : Contrast" << endl;
+							cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl << "7 : CannyEdge" << endl << "8 : Contrast" << endl << "9 : Draw" << endl;
 							cin >> choiceMenuImage;
 						}
 						String imageWindow = "modified_image";
@@ -188,6 +195,8 @@ int Menu() {
 							} else if (saveChoice.compare("No") != 0){
 								cout << "Wrong input ! (Yes or No)" << endl;
 								cin >> saveChoice;
+							} else {
+								return 0;
 							}
 							}
 
@@ -293,4 +302,5 @@ int Menu() {
 			cin >> choiceStartMenu;
 		}
 	}
+	return 0;
 }
