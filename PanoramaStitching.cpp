@@ -9,7 +9,7 @@ using std::filesystem::directory_iterator;
 Stitcher::Mode mode = Stitcher::PANORAMA;
 
 
-int panoramaStitching() {
+Mat panoramaStitching() {
     string path;
     cout << "Enter the path of the pictures you want to work with :" << endl;
     cin >> path;
@@ -49,12 +49,12 @@ int panoramaStitching() {
         }
         imshow("Panorama, without border detection", res);
         waitKey(0);
-        return -1;
+        return res;
     }
 
 
     imshow("Panorama : ", res);
     waitKey(0);
 
-    return 0;
+    return res;
 }
