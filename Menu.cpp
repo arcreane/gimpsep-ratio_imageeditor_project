@@ -77,10 +77,18 @@ Mat Menu() {
 							modified_image = darken_image(image, factor);
 							break;
 						case 4:
-							cout << "chose the factor :" << endl;
+							cout << "chose the factor : (between 1 and 50)" << endl;
 							cin >> factor;
+							while (factor < 1 || factor > 50) {
+								cout << "Wrong input select between 1 and 50 !" << endl;
+								cin >> factor;
+							}
 							cout << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
 							cin >> Stringmorphshape;
+							while (Stringmorphshape.compare("CROSS") != 0 && Stringmorphshape.compare("ELLIPSE") != 0 && Stringmorphshape.compare("RECT") != 0) {
+								cout << "Wrong input !" << endl << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
+								cin >> Stringmorphshape;
+							}
 							if (Stringmorphshape.compare("CROSS") == 0) {
 								morphshape = MORPH_CROSS;
 							}
@@ -89,18 +97,22 @@ Mat Menu() {
 							}
 							else if (Stringmorphshape.compare("RECT") == 0) {
 								morphshape = MORPH_RECT;
-							}
-							else {
-								cout << "Wrong input !" << endl << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
-								cin >> Stringmorphshape;
 							}
 							modified_image = erode(image, factor, factor, morphshape);
 							break;
 						case 5:
-							cout << "chose the factor :" << endl;
+							cout << "chose the factor : (between 1 and 50)" << endl;
 							cin >> factor;
+							while (factor < 1 || factor > 50) {
+								cout << "Wrong input select between 1 and 50 !" << endl;
+								cin >> factor;
+							}
 							cout << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
 							cin >> Stringmorphshape;
+							while (Stringmorphshape.compare("CROSS") != 0 && Stringmorphshape.compare("ELLIPSE") != 0 && Stringmorphshape.compare("RECT") != 0) {
+								cout << "Wrong input !" << endl << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
+								cin >> Stringmorphshape;
+							}
 							if (Stringmorphshape.compare("CROSS") == 0) {
 								morphshape = MORPH_CROSS;
 							}
@@ -109,10 +121,6 @@ Mat Menu() {
 							}
 							else if (Stringmorphshape.compare("RECT") == 0) {
 								morphshape = MORPH_RECT;
-							}
-							else {
-								cout << "Wrong input !" << endl << "chose the shape (between CROSS, ELLIPSE, RECT) : " << endl;
-								cin >> Stringmorphshape;
 							}
 							modified_image = dilate(image, factor, factor, morphshape);
 							break;
