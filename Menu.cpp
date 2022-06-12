@@ -15,7 +15,7 @@
 
 using namespace std;
 
-Mat Menu() {
+int Menu() {
 	cout << "------------ Welcome on the image / video Editor ------------" << endl << endl;
 	int choiceStartMenu;
 	bool loopStartMenu = true;
@@ -176,7 +176,15 @@ Mat Menu() {
 							cin >> saveChoice;
 							while (saveChoice.compare("Yes") !=0 || saveChoice.compare("No") != 0) {
 							if (saveChoice.compare("Yes") == 0) {
-								imwrite("saveImage.jpg", image);
+								bool isSuccess = imwrite("saveImage.jpg", image);
+								if (isSuccess) {
+									cout << "Image Saved successfully !" << endl;
+									waitKey(0);
+									return 1;
+								}
+								else {
+									cout << "failed saving image" << endl;
+								}
 							} else if (saveChoice.compare("No") != 0){
 								cout << "Wrong input ! (Yes or No)" << endl;
 								cin >> saveChoice;
