@@ -6,6 +6,7 @@
 #include "FaceDetection.h"
 #include "CannyEdge.h"
 #include "PanoramaStitching.h"
+#include "Contrast.h"
 #include <iostream>
 
 using namespace std;
@@ -60,7 +61,7 @@ Mat Menu() {
 				double factor;
 				String Stringmorphshape;
 				cout << "What do you want to do" << endl;
-				cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl << "7 : CannyEdge" << endl;
+				cout << "1 : resize image" << endl << "2 : Darken image" << endl << "3 : Ligthen image" << endl << "4 : Erode image" << endl << "5 : Dilate image" << endl << "6 : Face Detection" << endl << "7 : CannyEdge" << endl << "8 : Contrast Image" << endl;
 				int choice = 0;
 				cin >> choice;
 
@@ -135,6 +136,11 @@ Mat Menu() {
 					break;
 				case 7:
 					modified_image = cannyEdge(image);
+					break;
+				case 8:
+					cout << "chose the factor : (1 does not change the contrast, 2 increases, between 0 and 1 decreases) " << endl;
+					cin >> factor;
+					modified_image = Contrast(image, factor);
 					break;
 				default:
 					cout << "Wrong input, please choose between : " << endl;
